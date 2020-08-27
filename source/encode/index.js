@@ -14,6 +14,7 @@
 const AWS = require('aws-sdk');
 const error = require('./lib/error.js');
 const _ = require('lodash');
+const path = require('path');
 
 const getMp4Group = (outputPath) => ({
     Name: 'File Group',
@@ -59,7 +60,7 @@ const getCmafGroup = (outputPath) => ({
         CmafGroupSettings: {
             SegmentLength: 30,
             FragmentLength: 3,
-            Destination: `${outputPath}/cmaf/`
+            Destination: `${outputPath}/`
         }
     },
     Outputs: []
@@ -133,7 +134,8 @@ exports.handler = async (event) => {
 
     try {
         const inputPath = `s3://${event.srcBucket}/${event.srcVideo}`;
-        const outputPath = `s3://${event.destBucket}/${event.guid}`;
+        const parsedPath = path.parse(event.srcVideo);
+        const outputPath = `s3://${event.destBucket}/${path.join(parsedPath.dir, parsedPath.name)}`;
 
         // Baseline for the job parameters
         let job = {
