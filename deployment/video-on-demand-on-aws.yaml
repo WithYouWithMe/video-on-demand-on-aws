@@ -1,4 +1,4 @@
-Description: "(SO0021) - Video On Demand workflow with AWS Step Functions, MediaConvert, MediaPackage, S3, CloudFront and DynamoDB. Version %%VERSION%%"
+Description: "(SO0021) - Video On Demand workflow with AWS Step Functions, MediaConvert, MediaPackage, S3, CloudFront and DynamoDB. Version v5.1.0"
 
 Parameters:
 
@@ -109,8 +109,8 @@ Metadata:
 Mappings:
   SourceCode:
     General:
-      S3Bucket: "%%BUCKET_NAME%%"
-      KeyPrefix: "%%SOLUTION_NAME%%/%%VERSION%%"
+      S3Bucket: "solutions"
+      KeyPrefix: "video-on-demand-on-aws/v5.1.0"
   AnonymousData:
     SendAnonymousData:
       Data: Yes
@@ -1623,7 +1623,7 @@ Resources:
       ServiceToken: !GetAtt CustomResource.Arn
       SolutionId: SO0021
       UUID: !GetAtt Uuid.UUID
-      Version: "%%VERSION%%"
+      Version: "v5.1.0"
       Transcoder: MediaConvert
       WorkflowTrigger: !Ref WorkflowTrigger
       Glacier: !Ref Glacier
