@@ -39,7 +39,7 @@ exports.handler = async (event) => {
     let msg = {};
 
     try {
-        let subject = 'Workflow Status:: ' + event.workflowStatus + ':: ' + event.guid;
+        const subject = `Workflow Status:: ${event.workflowStatus}:: ${event.g}`;
 
         if (event.workflowStatus === 'Complete') {
             msg = event;
@@ -49,6 +49,28 @@ exports.handler = async (event) => {
             delete msg.jobTemplate_720p;
             delete msg.encodingJob;
             delete msg.encodingOutput;
+            delete msg.frameCapture;
+            delete msg.acceleratedTranscoding;
+            delete msg.workflowTrigger;
+            delete msg.cloudFront;
+            delete msg.archiveSource;
+            delete msg.enableSqs;
+            delete msg.srcBucket;
+            delete msg.inputRotate;
+            delete msg.srcWidth;
+            delete msg.destBucket;
+            delete msg.workflowStatus;
+            delete msg.workflowName;
+            delete msg.encodingProfile;
+            delete msg.isCustomTemplate;
+            delete msg.enableMediaPackage;
+            delete msg.enableSns;
+            delete msg.srcHeight;
+            delete msg.cmafDashPlaylist;
+            delete msg.cmafDashUrl;
+            delete msg.cmafHlsPlaylist;
+            delete msg.guid;
+            msg.cmafHlsUrl = msg.cmafHlsUrl.replace(/[\s]/g, "+")
 
             if (event.enableMediaPackage) {
                 /*
@@ -60,7 +82,6 @@ exports.handler = async (event) => {
         } else if (event.workflowStatus === 'Ingest') {
             msg = {
                 status: event.workflowStatus,
-                guid: event.guid,
                 srcVideo: event.srcVideo
             };
         } else {
